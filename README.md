@@ -1,3 +1,3 @@
-This is a simple backup solution for personal use. The project is developed and maintained for author's needs. I don't recommend to use it.
+This is a simple backup solution for personal use. The project is developed and maintained for the author's needs only. I don't recommend to use it for anyone else.
 
-The API is inspired by the backup gem.
+API is inspired by the backup gem.
