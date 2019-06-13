@@ -1,4 +1,4 @@
-# bundle exec example.rb
+# bundle exec ruby example.rb
 
 require 'yaml'
 
