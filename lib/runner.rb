@@ -11,6 +11,7 @@ class Backup
     def run
       @dir = prepare_dir
       run_databases
+      run_archives
       @compressed = run_compression
       save_to_storage
     rescue => exception
@@ -31,6 +32,10 @@ class Backup
 
       def run_databases
         @setup.databases.each(&:run)
+      end
+
+      def run_archives
+        @setup.archives.each(&:run)
       end
 
       def run_compression

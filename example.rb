@@ -1,5 +1,7 @@
 # bundle exec ruby example.rb
 
+require 'backup_kr'
+
 require 'yaml'
 
 root = Pathname.new(File.expand_path('../..', __FILE__))

@@ -4,6 +4,7 @@ require 'ostruct'
 require 'aws-sdk'
 
 require_relative 'runner'
+require_relative 'archive'
 require_relative 'compressor'
 require_relative 'helper/config'
 require_relative 'helper/runnable'
@@ -21,6 +22,7 @@ class Backup
   def initialize(&block)
     @setup = OpenStruct.new
     @setup.databases = []
+    @setup.archives = []
 
     instance_eval(&block) if block_given?
   end
@@ -31,6 +33,13 @@ class Backup
 
   def dir(path)
     @setup.dir = path
+  end
+
+  def archive(name, &block)
+    return unless block_given?
+
+    archive = Archive.new(name, &block)
+    @setup.archives << archive
   end
 
   def store_with(klass, &block)
