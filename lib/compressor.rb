@@ -1,12 +1,5 @@
 class Backup
   class Compressor
-    class CommandError < StandardError
-      def initialize(command)
-        msg = "\"#{command}\" returned non zero exit status"
-        super(msg)
-      end
-    end
-
     def self.compress(path)
       source = Pathname.new(path)
       base, dest = source.split

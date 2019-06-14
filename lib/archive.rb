@@ -22,7 +22,8 @@ class Backup
       end
 
       @paths.each do |path|
-        system "cp -r #{path} #{dest}"
+        command = "cp -r #{path} #{dest}"
+        system(command) or raise CommandError.new(command)
       end
     end
 

@@ -16,7 +16,8 @@ class Backup
         command =  "pg_dump"
         command += " --dbname=postgresql://#{username}:#{password}@#{host}:#{port}/#{dbname}"
         command += " #{opts} > #{file}"
-        system(command)
+
+        system(command) or raise CommandError.new(command)
       end
     end
   end
