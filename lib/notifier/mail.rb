@@ -3,17 +3,18 @@ class Backup
     class Mail
       include Helper::Config
 
-      attr_reader :server, :port,
-                  :domain, :user_name, :password, :authentication,
+      attr_reader :smtp, :domain, :user_name, :password, :authentication,
                   :from, :to
 
       def initialize
-        @server          = config.server
-        @port            = config.port
+        @smtp = Net::SMTP.new(config.server, config.port)
+        @smtp.enable_starttls if config.encryption.to_s == 'starttls'
+
         @domain          = config.domain
         @user_name       = config.user_name
         @password        = config.password
         @authentication  = config.authentication
+
         @from            = config.from
         @to              = config.to
       end
@@ -21,9 +22,7 @@ class Backup
       def deliver(subject:, body:)
         msg = concat_message(subject, body)
 
-        Net::SMTP.start(server, port, domain,
-          user_name, password, authentication) do |smtp|
-
+        smtp.start(domain, user_name, password, authentication) do |smtp|
           smtp.send_message msg, from, to
         end
       end
