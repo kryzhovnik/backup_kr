@@ -10,11 +10,11 @@ class Backup
 
       command = "tar czf #{filename} #{dest}"
       if system(command)
+        Backup.log("Compressed")
         base + filename
       else
         raise CommandError.new(command)
       end
-      Backup.log("Compressed")
     end
   end
 end
