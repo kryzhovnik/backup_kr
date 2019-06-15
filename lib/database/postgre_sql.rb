@@ -1,10 +1,7 @@
 class Backup
   class Database
     class PostgreSQL < Base
-      # include Helper::Config
-      # include Helper::Runnable
-
-      def run
+      def command
         dbname = config.name
         username = config.username
         password = config.password
@@ -15,9 +12,7 @@ class Backup
 
         command =  "pg_dump"
         command += " --dbname=postgresql://#{username}:#{password}@#{host}:#{port}/#{dbname}"
-        command += " #{opts} > #{file}"
-
-        system(command) or raise CommandError.new(command)
+        command + " #{opts} > #{file}"
       end
     end
   end

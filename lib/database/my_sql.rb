@@ -4,7 +4,7 @@ class Backup
       # include Helper::Config
       # include Helper::Runnable
 
-      def run
+      def command
         dbname = config.name
         username = config.username
         password = config.password
@@ -19,9 +19,7 @@ class Backup
         command << "--user=#{username}" if username
         command << "--password=#{password}" if password
         command << "#{opts} > #{file}"
-        command = command.join(' ')
-
-        system(command) or raise CommandError.new(command)
+        command.join(' ')
       end
     end
   end

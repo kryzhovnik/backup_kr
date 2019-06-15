@@ -9,7 +9,11 @@ class Backup
       end
 
       def run
-        raise NotImplementedError
+        name = self.class.name.split("::").last
+        Backup.log("Starting backup #{name}")
+        cmd = command
+        system(cmd) or raise CommandError.new(cmd)
+        Backup.log("Finished backuping #{name}")
       end
     end
   end
