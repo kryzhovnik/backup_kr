@@ -12,6 +12,7 @@ require_relative 'helper/runnable'
 require_relative 'notifier/mail'
 require_relative 'storage/base'
 require_relative 'storage/s3'
+require_relative 'database/base'
 require_relative 'database/postgre_sql'
 
 class Backup
@@ -58,8 +59,10 @@ class Backup
   end
 
   def database(klass, &block)
-    database = get_class_from_scope(Database, klass)
-    database.config(&block) if block_given?
+    raise ArgumentError.new("Block with config is required") unless block_given?
+
+    klass = get_class_from_scope(Database, klass)
+    database = klass.new(&block)
 
     @setup.databases << database
   end

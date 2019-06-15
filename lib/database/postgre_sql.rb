@@ -1,8 +1,8 @@
 class Backup
   class Database
-    class PostgreSQL
-      include Helper::Config
-      include Helper::Runnable
+    class PostgreSQL < Base
+      # include Helper::Config
+      # include Helper::Runnable
 
       def run
         dbname = config.name
