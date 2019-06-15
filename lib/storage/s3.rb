@@ -21,19 +21,20 @@ class Backup
         name = self.class.name.split("::").last
         Backup.log("Starting copy the backup to #{name}")
 
-        file = File.open(source)
         filename = File.basename(source)
         year = Time.now.year.to_s
 
         path = prefix.empty? ? year : File.join(prefix, year)
         key = File.join(path, filename)
 
-        resp = bucket.put_object(
-          acl: 'public-read',
-          body: file.read,
-          content_type: 'application/gzip',
-          key: key
-        )
+        bucket.object(key).upload_file(source)
+
+        # resp = bucket.put_object(
+        #   acl: 'public-read',
+        #   body: file.read,
+        #   content_type: 'application/gzip',
+        #   key: key
+        # )
 
         clean!
         Backup.log("Finished with #{name}")
