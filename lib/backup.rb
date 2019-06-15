@@ -1,8 +1,8 @@
 require 'time'
 require 'net/smtp'
 require 'ostruct'
+require 'logger'
 require 'aws-sdk'
-
 require_relative 'runner'
 require_relative 'archive'
 require_relative 'compressor'
@@ -14,11 +14,18 @@ require_relative 'storage/base'
 require_relative 'storage/s3'
 require_relative 'database/base'
 require_relative 'database/postgre_sql'
+require_relative 'database/my_sql'
 
 class Backup
+  @logger = Logger.new(STDOUT)
+
   def self.run(&block)
     backup = new(&block)
     backup.run
+  end
+
+  def self.log(msg)
+    @logger.info(msg)
   end
 
   def initialize(&block)
