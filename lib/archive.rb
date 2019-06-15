@@ -13,6 +13,8 @@ class Backup
     end
 
     def run
+      Backup.log("Starting archive #{name}")
+
       current_path = Pathname.new(Dir.pwd)
       if name
         dest = current_path / name
@@ -25,6 +27,7 @@ class Backup
         command = "cp -r #{path} #{dest}"
         system(command) or raise CommandError.new(command)
       end
+      Backup.log("Finished arvhiving #{name}")
     end
 
     private

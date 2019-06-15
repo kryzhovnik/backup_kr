@@ -18,6 +18,9 @@ class Backup
       end
 
       def save(source)
+        name = self.class.name.split("::").last
+        Backup.log("Starting copy the backup to #{name}")
+
         file = File.open(source)
         filename = File.basename(source)
         year = Time.now.year.to_s
@@ -33,6 +36,7 @@ class Backup
         )
 
         clean!
+        Backup.log("Finished with #{name}")
       end
 
       def clean!
