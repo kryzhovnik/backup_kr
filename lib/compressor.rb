@@ -1,6 +1,7 @@
 class Backup
   class Compressor
     def self.compress(path)
+      Backup.log("Start compressing")
       source = Pathname.new(path)
       base, dest = source.split
       filename = dest.to_s.sub(/\/$/, '') + '.tar.gz'
@@ -13,6 +14,7 @@ class Backup
       else
         raise CommandError.new(command)
       end
+      Backup.log("Compressed")
     end
   end
 end
