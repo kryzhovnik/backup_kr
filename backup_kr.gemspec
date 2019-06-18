@@ -8,5 +8,6 @@ Gem::Specification.new do |s|
   s.files       = ["lib/backup.rb"]
   s.homepage    = 'https://github.com/kryzhovnik/backup'
   s.license     = 'MIT'
-  s.add_dependency 'aws-sdk', '~> 3'
+  s.add_dependency 'aws-sdk-core', '~> 3'
+  s.add_dependency 'aws-sdk-s3'
 end

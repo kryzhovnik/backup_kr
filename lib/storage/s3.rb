@@ -26,15 +26,7 @@ class Backup
 
         path = prefix.empty? ? year : File.join(prefix, year)
         key = File.join(path, filename)
-
         bucket.object(key).upload_file(source)
-
-        # resp = bucket.put_object(
-        #   acl: 'public-read',
-        #   body: file.read,
-        #   content_type: 'application/gzip',
-        #   key: key
-        # )
 
         clean!
         Backup.log("Finished with #{name}")
