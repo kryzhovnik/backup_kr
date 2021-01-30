@@ -6,7 +6,6 @@ class Backup
       def initialize
         @s3 = Aws::S3::Resource.new(
           region: config.region,
-          endpoint: END_POINT,
           credentials: credentials
         )
         @bucket = @s3.bucket(config.bucket)

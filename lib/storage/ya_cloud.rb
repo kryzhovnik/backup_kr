@@ -7,7 +7,6 @@ class Backup
         @s3 = Aws::S3::Resource.new(
           endpoint: END_POINT,
           region: config.region,
-          endpoint: END_POINT,
           credentials: credentials
         )
         @bucket = @s3.bucket(config.bucket)
