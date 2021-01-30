@@ -4,15 +4,11 @@ class Backup
       attr_reader :bucket, :prefix
 
       def initialize
-        credentials = ::Aws::Credentials.new(
-          config.access_key_id,
-          config.secret_access_key
-        )
-        Aws.config.update(
+        @s3 = Aws::S3::Resource.new(
           region: config.region,
+          endpoint: END_POINT,
           credentials: credentials
         )
-        @s3 = Aws::S3::Resource.new
         @bucket = @s3.bucket(config.bucket)
         @prefix = config.prefix || ''
       end
@@ -40,6 +36,11 @@ class Backup
           object.delete
         end
       end
+
+      private
+        def credentials
+          ::Aws::Credentials.new(config.access_key_id, config.secret_access_key)
+        end
 
       class CleanStrategy
         attr_reader :opts
