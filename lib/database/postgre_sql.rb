@@ -7,7 +7,7 @@ class Backup
         password = config.password
         host = config.host
         port = config.port
-        opts = config.additional_options.join(' ')
+        opts = config.additional_options.join(' ') if config.additional_options
         file = "#{dbname}.db"
 
         command =  "pg_dump"
